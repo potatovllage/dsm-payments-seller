@@ -3,7 +3,6 @@ import { useEffect, useState, Component } from 'react';
 import QrReader from 'react-qr-reader';
 
 import styled from '@emotion/styled';
-import { css } from '@emotion/react';
 
 import paymentSuccessSound from '../assets/sound/paymentSuccess.mp3';
 
@@ -213,13 +212,15 @@ class Test extends Component {
   }
 }
 
-const W = styled.div<{
+type WProp = {
   deviceSize: {
     width: number;
     height: number;
   };
   isScanSuccess: boolean;
-}>`
+};
+
+const W = styled.div<WProp>`
   background-color: rgba(0, 0, 0, 40%);
   height: 100%;
   display: flex;
@@ -230,17 +231,13 @@ const W = styled.div<{
 
   > .qr-code-reader {
     @media screen and (orientation: portrait) {
-      ${({ deviceSize: { width } }) => css`
-        width: ${width}px;
-        height: ${width}px;
-      `}// CSS applied when the device is in portrait mode
+      width: ${({ deviceSize: { width } }) => width}px;
+      height: ${({ deviceSize: { height } }) => height}px;
     }
 
     @media screen and (orientation: landscape) {
-      ${({ deviceSize: { height } }) => css`
-        width: ${height - 60}px;
-        height: ${height - 60}px;
-      `}// CSS applied when the device is in landscape mode
+      width: ${({ deviceSize: { width } }) => width - 60}px;
+      height: ${({ deviceSize: { height } }) => height - 60}px;
     }
 
     > section > div {
@@ -360,7 +357,8 @@ function QrCodeReaderPage() {
       <footer
         onClick={() => {
           setIsSelfCameraMode((prev) => !prev);
-        }}>
+        }}
+      >
         <p>카메라 전환</p>
       </footer>
       {isPaymentAgreeModal && (
@@ -372,7 +370,8 @@ function QrCodeReaderPage() {
               onClick={() => {
                 setIsPaymentAgreeModal(false);
                 setIsEnableScan(true);
-              }}>
+              }}
+            >
               취소
             </button>
             <button
@@ -381,7 +380,8 @@ function QrCodeReaderPage() {
                 audio.play();
                 setIsPaymentAgreeModal(false);
                 setIsEnableScan(true);
-              }}>
+              }}
+            >
               결제
             </button>
           </div>
