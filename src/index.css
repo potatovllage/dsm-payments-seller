@@ -1,7 +1,11 @@
+:root {
+  /* --base-color: #e05d57; */
+  --base-color: #d44b5e;
+}
 html,
 body {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', MalgunGothic, '맑은 고딕', sans-serif,
-    'apple color emoji', 'segoe ui emoji', 'segoe ui symbol', 'noto color emoji';
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', MalgunGothic, '맑은 고딕', sans-serif, 'apple color emoji',
+    'segoe ui emoji', 'segoe ui symbol', 'noto color emoji';
   width: 100vw;
   height: 100vh;
 }
@@ -12,7 +16,17 @@ body {
   padding: 0;
 }
 
+ul {
+  list-style: none;
+}
+
 #root {
   width: 100%;
   height: 100%;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
