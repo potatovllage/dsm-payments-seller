@@ -5,13 +5,13 @@ import { IoLogoApple } from 'react-icons/io';
 import { Input } from '../components';
 import { postBoothLogin } from '../apis/booth';
 import { useInput } from '../hooks/useInput';
-import { useLoading } from '../hooks/useLoading';
+import { useBool } from '../hooks/useBool';
 
 export const BoothLoginPage = () => {
   const history = useHistory();
   const { value: id, onChange: onChangeId } = useInput('');
   const { value: password, onChange: onChangePassword } = useInput('');
-  const { loading, startLoading, endLoading } = useLoading(false);
+  const { bool: loading, onTrue: startLoading, onFalse: endLoading } = useBool(false);
 
   const login = async () => {
     startLoading();
