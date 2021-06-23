@@ -1,15 +1,17 @@
-import './index.css';
-
 import React from 'react';
 import { render } from 'react-dom';
+import { RecoilRoot } from 'recoil';
 
+import './index.css';
 import { App } from './App';
 
 const rootElement = document.querySelector('#root');
 
 render(
   <React.StrictMode>
-    <App />
+    <RecoilRoot>
+      <App />
+    </RecoilRoot>
   </React.StrictMode>,
   rootElement
 );
