@@ -13,7 +13,7 @@ const Info = ({ infos }: Props) => {
   return (
     <Wrap>
       {infos.map(({ title, content }) => (
-        <li>
+        <li key={title}>
           <div>
             <span>{title}</span>
             <span>{content}</span>
@@ -52,6 +52,17 @@ const Wrap = styled.ul`
           color: #4c4c4c;
           font-size: 24px;
         }
+      }
+    }
+  }
+  @media all and (max-width: 425px) {
+    flex-direction: column;
+    > li {
+      margin: 8px 0;
+      > div {
+        padding-bottom: 8px;
+        border-left: 0 !important;
+        border-bottom: 3px solid #c3c3c3;
       }
     }
   }

@@ -21,6 +21,10 @@ const Navigation = () => {
         <AiOutlineHistory />
         <span>결제 내역</span>
       </NavLink>
+      <NavLink to='/booth/qr-reader' exact activeClassName='active'>
+        <AiOutlineHistory />
+        <span>QR 코드</span>
+      </NavLink>
       <Link to='/booth/login' onClick={logout}>
         <AiOutlineLogout />
         <span>로그아웃</span>

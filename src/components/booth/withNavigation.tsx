@@ -21,6 +21,21 @@ const Wrap = styled.div`
     border-radius: 4px;
     box-shadow: 0 3px 5px #afafaf;
   }
+  @media all and (max-width: 1075px) {
+    display: block;
+    > nav {
+      flex-direction: row;
+      > a {
+        border-radius: 18px;
+        padding: 8px 12px;
+      }
+    }
+  }
+  @media all and (max-width: 425px) {
+    > nav > a {
+      font-size: 12px;
+    }
+  }
 `;
 
 export default withNavigation;
