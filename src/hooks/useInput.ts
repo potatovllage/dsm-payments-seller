@@ -9,5 +9,5 @@ export const useInput = (defaultValue: string) => {
     setValue(e.currentTarget.value);
   }, []);
 
-  return { value, onChange } as const;
+  return { value, onChange, setValue } as const;
 };
