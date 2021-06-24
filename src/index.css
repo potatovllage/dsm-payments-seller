@@ -1,6 +1,7 @@
 :root {
-  /* --base-color: #e05d57; */
-  --base-color: #d44b5e;
+  --base-color: #e05d57;
+  --gray-color: #e2e2e2;
+  --blue-color: #4384f3;
 }
 html,
 body {
@@ -18,11 +19,6 @@ body {
 
 ul {
   list-style: none;
-}
-
-#root {
-  width: 100%;
-  height: 100%;
 }
 
 .flex-center {
