@@ -13,3 +13,8 @@ export const menuState = atom<MenuType[]>({
     })),
   ],
 });
+
+export const targetUuidState = atom<string>({
+  key: 'targetUuidState',
+  default: '',
+});
