@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
 import { useHistory } from 'react-router-dom';
 
-import { IoLogoApple } from 'react-icons/io';
-import { Input } from '../components';
 import { postBoothLogin } from '../apis/booth';
+import { dsm_payment_svg } from '../assets';
+import { Input } from '../components';
 import { useInput } from '../hooks/useInput';
 import { useBool } from '../hooks/useBool';
 
@@ -34,7 +34,7 @@ export const BoothLoginPage = () => {
   return (
     <Wrap>
       <div>
-        <IoLogoApple />
+        <img src={dsm_payment_svg} alt='dsm payment' title='dsm payment' />
         <Input
           labelText='아이디'
           inputAttr={{
@@ -75,11 +75,11 @@ const Wrap = styled.main`
     display: flex;
     justify-content: center;
     flex-direction: column;
-    width: 30%;
+    width: 300px;
     margin: 200px auto 0;
-    > svg {
-      width: 80px;
-      height: 80px;
+    > img {
+      width: 100px;
+      height: 100px;
       margin: 0 auto 30px;
     }
     > button {
