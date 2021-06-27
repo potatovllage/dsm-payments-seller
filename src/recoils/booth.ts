@@ -18,3 +18,8 @@ export const targetUuidState = atom<string>({
   key: 'targetUuidState',
   default: '',
 });
+
+export const connectionConditionState = atom<boolean>({
+  key: 'connectionConditionState',
+  default: false,
+});

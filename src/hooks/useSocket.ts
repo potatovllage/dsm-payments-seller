@@ -2,27 +2,39 @@ import { useEffect, useRef } from 'react';
 import { useSetRecoilState } from 'recoil';
 import socketIO from 'socket.io-client';
 
-import { targetUuidState } from '../recoils/booth';
+import { connectionConditionState, targetUuidState } from '../recoils/booth';
 
 const SOCKET_URL = 'https://d884b5cc4e25.ngrok.io';
 
 export const useSocket = () => {
-  const socketRef = useRef<SocketIOClient.Socket>();
+  const socket = useRef<SocketIOClient.Socket>();
+  const socketConnectCount = useRef<number>(0);
   const setTargetUuid = useSetRecoilState(targetUuidState);
+  const setConnectionCondition = useSetRecoilState(connectionConditionState);
 
   useEffect(() => {
-    socketRef.current = socketIO.connect(SOCKET_URL, { transports: ['websocket'] });
+    socket.current = socketIO.connect(SOCKET_URL, { transports: ['websocket'] });
 
-    socketRef.current.emit('auth', {
+    socket.current.emit('auth', {
       accessToken: localStorage.getItem('accessToken'),
     });
 
-    socketRef.current.on('booth-payment-permission', setTargetUuid);
+    socket.current.on('booth-payment-permission', setTargetUuid);
+
+    socket.current.on('connect_error', () => {
+      if (socketConnectCount.current > 3) {
+        socket.current?.disconnect();
+        setConnectionCondition(true);
+        return;
+      }
+
+      socketConnectCount.current++;
+    });
 
     return () => {
-      socketRef.current?.disconnect();
+      socket.current?.disconnect();
     };
   }, []);
 
-  return { socketRef };
+  return { socket, socketConnectCount } as const;
 };

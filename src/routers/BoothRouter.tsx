@@ -1,18 +1,16 @@
 import { FC } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
-import { Header, withNavigation, withNeedAuth } from '../components';
-import { useSocket } from '../hooks/useSocket';
+import { Header, SocketConnectionCondition, withNavigation, withNeedAuth } from '../components';
 import { BoothHistoryPage, BoothLoginPage, BoothHomePage, BoothPayPage, BoothQRReaderPage } from '../pages';
 
 const withLogin = (Component: FC) => withNeedAuth(withNavigation(Component));
 
 export const BoothRouter = () => {
-  useSocket();
-
   return (
     <BrowserRouter>
       <Header />
+      <SocketConnectionCondition />
       <Switch>
         <Route path='/booth/login' component={BoothLoginPage} />
         <Route path='/booth/qr-reader' component={withLogin(BoothQRReaderPage)} />
