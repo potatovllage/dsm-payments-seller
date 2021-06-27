@@ -1,6 +1,6 @@
 import { atom } from 'recoil';
 
-import { MenuType } from '../types';
+import { ConnectionType, MenuType, NORMAL } from '../types';
 
 export const menuState = atom<MenuType[]>({
   key: 'menuState',
@@ -19,7 +19,7 @@ export const targetUuidState = atom<string>({
   default: '',
 });
 
-export const connectionConditionState = atom<boolean>({
+export const connectionConditionState = atom<ConnectionType>({
   key: 'connectionConditionState',
-  default: false,
+  default: NORMAL,
 });

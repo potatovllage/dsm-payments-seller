@@ -30,3 +30,9 @@ export type HistoryLog = {
   number: string;
   time: string;
 };
+
+export const NORMAL = 'NORMAL' as const;
+export const ERROR = 'ERROR' as const;
+export const SUCCESS = 'SUCCESS' as const;
+
+export type ConnectionType = typeof NORMAL | typeof ERROR | typeof SUCCESS;

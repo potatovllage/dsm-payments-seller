@@ -3,6 +3,7 @@ import { useSetRecoilState } from 'recoil';
 import socketIO from 'socket.io-client';
 
 import { connectionConditionState, targetUuidState } from '../recoils/booth';
+import { SUCCESS } from '../types';
 
 const SOCKET_URL = 'https://d884b5cc4e25.ngrok.io';
 
@@ -24,7 +25,7 @@ export const useSocket = () => {
     socket.current.on('connect_error', () => {
       if (socketConnectCount.current > 3) {
         socket.current?.disconnect();
-        setConnectionCondition(true);
+        setConnectionCondition(SUCCESS);
         return;
       }
 
