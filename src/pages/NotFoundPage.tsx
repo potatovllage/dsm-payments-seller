@@ -1,5 +1,5 @@
 function NotFoundPage() {
-  return <div></div>;
+  return <div>404 Page Not Found!</div>;
 }
 
 export { NotFoundPage };
