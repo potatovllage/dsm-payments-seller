@@ -1,5 +1,5 @@
 import { NavLink, Link } from 'react-router-dom';
-import { AiOutlineHome, AiOutlineHistory, MdPayment, AiOutlineLogout } from 'react-icons/all';
+import { AiOutlineHome, AiOutlineHistory, MdPayment, AiOutlineLogout, IoQrCode } from 'react-icons/all';
 import styled from '@emotion/styled';
 
 const Navigation = () => {
@@ -21,10 +21,10 @@ const Navigation = () => {
         <AiOutlineHistory />
         <span>결제 내역</span>
       </NavLink>
-      <NavLink to='/booth/qr-reader' exact activeClassName='active'>
-        <AiOutlineHistory />
+      <a href='/qr-code.html'>
+        <IoQrCode />
         <span>QR 코드</span>
-      </NavLink>
+      </a>
       <Link to='/booth/login' onClick={logout}>
         <AiOutlineLogout />
         <span>로그아웃</span>
@@ -55,6 +55,12 @@ const Wrap = styled.nav`
       width: 20px;
       height: 20px;
       margin-right: 12px;
+    }
+  }
+  @media all and (max-width: 425px) {
+    justify-content: center;
+    > a > svg {
+      display: none;
     }
   }
 `;

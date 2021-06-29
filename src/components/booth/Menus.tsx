@@ -1,53 +1,47 @@
 import { useState, KeyboardEvent } from 'react';
-import { useRecoilValue } from 'recoil';
 import styled from '@emotion/styled';
 
-import { Modal } from './';
+import { Modal, AddMenuInput } from './';
 
 import { delete_svg, plus_svg } from '../../assets';
-import { useBool } from '../../hooks/useBool';
-import { useInput } from '../../hooks/useInput';
-import { menuState } from '../../recoils/booth';
+import { useBool, useInput } from '../../hooks';
 import { MenuType } from '../../types';
 
 type Props = {
+  menus: MenuType[];
   addMenu: (name: string, price: number) => Promise<void>;
   deleteMenu: (menuId: number) => Promise<void>;
 };
 
-const Menus = ({ addMenu, deleteMenu }: Props) => {
-  const menus = useRecoilValue(menuState);
+const Menus = ({ menus, addMenu, deleteMenu }: Props) => {
   const { bool: modal, onTrue: openModal, onFalse: closeModal } = useBool(false);
-  const { bool: loading, onTrue: startLoading, onFalse: endLoading } = useBool(false);
-  const { bool, onTrue, onFalse } = useBool(false);
+  const { bool: inputWrap, onTrue: openInputWrap, onFalse: closeInputWrap } = useBool(false);
   const { value: name, onChange: onChangeName, setValue: setName } = useInput('');
   const { value: price, onChange: onChangePrice, setValue: setPrice } = useInput('');
   const [selectedMenu, setSelectedMenu] = useState<Omit<MenuType, 'boothId'>>({ menuId: 0, name: '', price: 0 });
 
   const onKeyPressAddMenu = async (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      startLoading();
       setName('');
       setPrice('');
       await addMenu(name, +price);
-      endLoading();
     }
+  };
+
+  const onClickCloseInputWrap = () => {
+    closeInputWrap();
+    setName('');
+    setPrice('');
   };
 
   if (menus.length === 0) {
     return (
       <Wrap>
-        <AddInputWrap className='menu-item'>
-          <span>
-            <input type='text' value={name} onChange={onChangeName} />
-          </span>
-          <span>
-            <input type='text' value={price} onChange={onChangePrice} onKeyPress={onKeyPressAddMenu} />
-          </span>
-        </AddInputWrap>
+        <AddMenuInput name={name} price={price} onChangeName={onChangeName} onChangePrice={onChangePrice} onKeyPressAddMenu={onKeyPressAddMenu} />
       </Wrap>
     );
   }
+
   return (
     <Wrap>
       {menus.map(({ menuId, name, price }) => (
@@ -76,37 +70,17 @@ const Menus = ({ addMenu, deleteMenu }: Props) => {
           />
         </li>
       ))}
-      {loading && (
-        <li className='menu-item loading'>
-          <p>
-            <Loading />
-          </p>
-          <p>
-            <Loading />
-          </p>
-        </li>
+      {inputWrap && (
+        <AddMenuInput
+          name={name}
+          price={price}
+          onChangeName={onChangeName}
+          onChangePrice={onChangePrice}
+          onKeyPressAddMenu={onKeyPressAddMenu}
+          onClickCloseInputWrap={onClickCloseInputWrap}
+        />
       )}
-      {bool && (
-        <AddInputWrap className='menu-item'>
-          <p>
-            <input type='text' value={name} onChange={onChangeName} />
-          </p>
-          <p>
-            <input type='text' value={price} onChange={onChangePrice} onKeyPress={onKeyPressAddMenu} />
-          </p>
-          <img
-            src={delete_svg}
-            alt='delete'
-            title='delete'
-            onClick={() => {
-              onFalse();
-              setName('');
-              setPrice('');
-            }}
-          />
-        </AddInputWrap>
-      )}
-      <AddBoxWrap onClick={onTrue}>
+      <AddBoxWrap onClick={openInputWrap}>
         <p>메뉴 추가하기</p>
         <button>
           <img src={plus_svg} alt='plus' title='plus' />
@@ -225,33 +199,5 @@ const AddBoxWrap = styled.li`
     }
   }
 `;
-
-const AddInputWrap = styled.li`
-  cursor: default !important;
-  > p > input {
-    width: 100%;
-    border: 0;
-    border-bottom: 1px solid #ececec;
-    outline: none;
-  }
-`;
-
-const Loading = () => {
-  return (
-    <svg version='1.1' id='L9' xmlns='http://www.w3.org/2000/svg' x='0px' y='0px' viewBox='0 0 100 100' enable-background='new 0 0 0 0'>
-      <path fill='#242424' d='M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50'>
-        <animateTransform
-          attributeName='transform'
-          attributeType='XML'
-          type='rotate'
-          dur='1s'
-          from='0 50 50'
-          to='360 50 50'
-          repeatCount='indefinite'
-        />
-      </path>
-    </svg>
-  );
-};
 
 export default Menus;

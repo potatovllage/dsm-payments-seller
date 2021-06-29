@@ -1,6 +1,7 @@
 export { default as withNavigation } from './withNavigation';
 export { default as withNeedAuth } from './withNeedAuth';
 export { default as SocketConnectionCondition } from './SocketConnectionCondition';
+export { default as AddMenuInput } from './AddMenuInput';
 export { default as Navigation } from './Navigation';
 export { default as LogItem } from './LogItem';
 export { default as Header } from './Header';

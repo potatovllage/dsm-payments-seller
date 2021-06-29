@@ -23,6 +23,14 @@ const SocketConnectionCondition = () => {
           >
             새로고침
           </button>
+          <button
+            onClick={() => {
+              setConnectionCondition(NORMAL);
+            }}
+            className='connect-success'
+          >
+            X
+          </button>
         </Wrap>
       )}
       {connectionCondition === SUCCESS && (
@@ -45,8 +53,8 @@ const SocketConnectionCondition = () => {
 const Wrap = styled.div`
   position: fixed;
   bottom: 18px;
-  left: 18px;
-  padding: 12px;
+  right: 18px;
+  padding: 8px 12px;
   border-radius: 16px;
   background-color: #232626;
   color: #e2e2e2;

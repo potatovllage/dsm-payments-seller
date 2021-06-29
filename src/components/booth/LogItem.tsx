@@ -1,31 +1,30 @@
 import styled from '@emotion/styled';
 
 type Props = {
-  id: string;
-  number: string;
-  name: string;
-  coin: string;
-  place: string;
-  time: string;
+  id: number | string;
+  userName: string;
+  userNumber: number | string;
+  boothName: string;
+  finalValue: number | string;
+  createAt: string;
 };
 
-const LogItem = ({ id, number, name, coin, place, time }: Props) => {
+const LogItem = ({ id, userNumber, userName, finalValue, boothName, createAt }: Props) => {
   return (
     <Wrap>
       <span className='id'>{id}</span>
-      <span className='number'>{number}</span>
-      <span className='name'>{name}</span>
-      <span className={`coin ${isNaN(+coin) ? '' : +coin > 0 ? 'positive' : 'negative'}`}>{coin}</span>
-      <span className='place'>거래 {place}</span>
-      <span className='time'>{time}</span>
+      <span className='number'>{userNumber}</span>
+      <span className='name'>{userName}</span>
+      <span className={`coin ${isNaN(+finalValue) ? '' : +finalValue > 0 ? 'positive' : 'negative'}`}>{finalValue}</span>
+      <span className='place'>{boothName}</span>
+      <span className='time'>{new Date(createAt).toLocaleTimeString()}</span>
     </Wrap>
   );
 };
 
-const Wrap = styled.li`
+export const Wrap = styled.li`
   display: flex;
   padding: 12px 8px;
-  border-bottom: 1px solid var(--gray-color);
   font-size: 14px;
   &:first-of-type {
     color: #242424;
@@ -34,12 +33,15 @@ const Wrap = styled.li`
       border-right: 2px solid var(--gray-color);
     }
   }
+  &:not(:last-of-type) {
+    border-bottom: 1px solid var(--gray-color);
+  }
   > span {
     min-width: 60px;
     padding: 4px 12px;
     color: #3a3a3a;
     &.id {
-      width: 5%;
+      width: 10%;
     }
     &.number {
       width: 5%;
@@ -59,9 +61,11 @@ const Wrap = styled.li`
     }
     &.place {
       width: 15%;
+      text-align: left;
     }
     &.time {
       width: 20%;
+      text-align: left;
     }
   }
 `;

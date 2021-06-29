@@ -1,25 +1,55 @@
 import styled from '@emotion/styled';
+import { useRecoilValue } from 'recoil';
 
-type Info = {
-  title: string;
-  content: string;
-};
+import { Loading } from '../';
+import { boothState, menuState } from '../../recoils/booth';
 
 type Props = {
-  infos: Info[];
+  loading: boolean;
 };
 
-const Info = ({ infos }: Props) => {
+const Info = ({ loading }: Props) => {
+  const info = useRecoilValue(boothState);
+  const menus = useRecoilValue(menuState);
+  const { name, coin, numOfUsers, totalCoin } = info;
+  const menuCount = menus.length;
+  const infos = [
+    {
+      title: '이름',
+      content: name,
+    },
+    {
+      title: '이용자',
+      content: numOfUsers.toLocaleString(),
+    },
+    {
+      title: '메뉴 수',
+      content: menuCount.toLocaleString(),
+    },
+    {
+      title: '보유 코인',
+      content: coin.toLocaleString(),
+    },
+    {
+      title: '누적 코인',
+      content: totalCoin.toLocaleString(),
+    },
+  ];
+
   return (
     <Wrap>
-      {infos.map(({ title, content }) => (
-        <li key={title}>
-          <div>
-            <span>{title}</span>
-            <span>{content}</span>
-          </div>
-        </li>
-      ))}
+      {loading ? (
+        <Loading height='80px' />
+      ) : (
+        infos.map(({ title, content }) => (
+          <li key={title}>
+            <div>
+              <span>{title}</span>
+              <span>{content}</span>
+            </div>
+          </li>
+        ))
+      )}
     </Wrap>
   );
 };
