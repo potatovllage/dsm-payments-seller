@@ -1,9 +1,8 @@
-import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Link, Redirect } from 'react-router-dom';
 
 import { BoothRouter } from './BoothRouter';
 
-import { NotFoundPage } from '../pages/NotFoundPage';
-import { QrCodeReaderPage } from '../pages/QrCodeReaderPage';
+import { NotFoundPage, QRCodeReaderPage } from '../pages';
 
 function MainRouter() {
   return (
@@ -14,9 +13,10 @@ function MainRouter() {
           <br />
           <Link to='/booth'>부스</Link>
         </Route>
-        <Route path='/qr-code-reader' exact={true} component={QrCodeReaderPage} />
+        <Route path='/qr-code-reader' component={QRCodeReaderPage} />
         <Route path='/booth' component={BoothRouter} />
-        <Route component={NotFoundPage} />
+        <Route path='/404' component={NotFoundPage} />
+        <Redirect to='/404' path='*' />
       </Switch>
     </BrowserRouter>
   );
