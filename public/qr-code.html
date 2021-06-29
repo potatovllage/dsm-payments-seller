@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <title>부스 | dsm-payments</title>
+    <script src="html5-qrcode.min.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      #reader video {
+        transform: scaleX(-1);
+      }
+      #reader > div:first-of-type {
+        display: none;
+      }
+      #reader__dashboard_section_csr button {
+        margin: 24px 0;
+        padding: 6px 12px;
+        border: 0;
+        border-radius: 6px;
+        background-color: #5166cc;
+        color: white;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div style="width: 100vw; min-width: 350px; margin: auto" id="reader"></div>
+    <script>
+      (() => {
+        const BASE_URL = 'https://5192089a03c0.ngrok.io';
+        const html5QrcodeScanner = new Html5QrcodeScanner('reader', { fps: 10, qrbox: 250 });
+
+        const postPaymentPermission = (userUuid) => {
+          if (typeof userUuid !== 'string') throw new Error('user uuid is not string.');
+
+          return fetch(`${BASE_URL}/booth/menu/payment/permission`, {
+            method: 'POST',
+            body: JSON.stringify({ userUuid }),
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+              'Content-Type': 'application/json',
+            },
+          });
+        };
+
+        const onScan = () => {
+          let isEnable = true;
+
+          return async (decodedText, decodedResult) => {
+            if (isEnable) {
+              console.log('decodedText:', decodedText);
+              const audio = new Audio('./paymentSuccess.mp3');
+
+              audio.play();
+              isEnable = false;
+              setTimeout(() => {
+                isEnable = true;
+              }, 5000);
+              try {
+                await postPaymentPermission(decodedText);
+              } catch (err) {
+                alert('사용자 정보 가져오기 실패');
+              }
+            }
+          };
+        };
+
+        html5QrcodeScanner.render(onScan());
+      })();
+    </script>
+  </body>
+</html>
