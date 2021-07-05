@@ -10,7 +10,7 @@ const withNeedAuth = <Props extends {}>(Component: ComponentType<Props>) => {
 
       return <Component {...params} />;
     } catch {
-      return <Redirect to='/booth/login' />;
+      return <Redirect to='/login' />;
     }
   };
 };

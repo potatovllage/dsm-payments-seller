@@ -19,7 +19,7 @@ export const BoothLoginPage = () => {
       const { data } = await postBoothLogin(id, password);
 
       localStorage.setItem('accessToken', data.accessToken);
-      history.push('/booth');
+      history.push('/');
     } catch (err) {
       alert('로그인 실패');
       endLoading();

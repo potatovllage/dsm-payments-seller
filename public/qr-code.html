@@ -34,13 +34,20 @@
     <div style="width: 100vw; min-width: 350px; margin: auto" id="reader"></div>
     <script>
       (() => {
+        const accessToken = localStorage.getItem('accessToken');
+
+        if (accessToken === null) {
+          alert('로그인 후 이용해주세요.');
+          location.href = '/login';
+          return;
+        }
+
         const BASE_URL = 'https://api.dsm-pay.com';
         const html5QRCodeScanner = new Html5QrcodeScanner('reader', { fps: 10, qrbox: 250 });
 
         const postPaymentPermission = (userUuid) => {
-          const accessToken = localStorage.getItem('accessToken');
           if (typeof userUuid !== 'string') throw new Error('user uuid is not string.');
-          if (accessToken === null) throw new Error('can not found access token');
+          if (accessToken === null) throw new Error('can not found access token.');
 
           return fetch(`${BASE_URL}/booth/menu/payment/permission`, {
             method: 'POST',
