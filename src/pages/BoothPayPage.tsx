@@ -15,6 +15,7 @@ export const BoothPayPage = () => {
     <Wrap>
       <div>
         <h1>결제</h1>
+        <span>메뉴를 추가하실 때 가격에 -(마이너스)값을 부여하면 해당 메뉴 결제 시 사용자에게 코인이 지급되고 부스 코인이 차감됩니다.</span>
         {loading && <Loading width='60px' height='60px' />}
       </div>
       <Menus menus={menus} addMenu={addMenu} deleteMenu={deleteMenu} />
@@ -25,18 +26,16 @@ export const BoothPayPage = () => {
 const Wrap = styled.main`
   > div {
     display: flex;
-    align-items: center;
-    margin-bottom: 12px;
+    align-items: flex-end;
     height: 60px;
+    line-height: 1;
+    margin-bottom: 12px;
     padding: 0 16px;
     text-align: right;
-    > button {
-      padding: 8px;
-      border: 0;
-      border-radius: 8px;
-      background-color: var(--base-color);
-      color: white;
-      cursor: pointer;
+    > span {
+      margin-left: 12px;
+      color: #5a5a5a;
+      font-size: 12px;
     }
   }
   > hr {
