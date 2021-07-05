@@ -55,7 +55,7 @@
         const onScan = () => {
           let isEnable = true;
 
-          return async (decodedText) => {
+          return (decodedText) => {
             if (isEnable) {
               const audio = new Audio('./paymentSuccess.mp3');
 
@@ -69,7 +69,8 @@
               }, 5000);
 
               try {
-                await postPaymentPermission(decodedText);
+                console.log('in try');
+                postPaymentPermission(decodedText);
               } catch (err) {
                 alert('QR 코드 스캔 실패');
               }
