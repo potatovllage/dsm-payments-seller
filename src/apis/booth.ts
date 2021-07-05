@@ -1,9 +1,9 @@
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 
 import { BoothInfoType, MenuType, PaymentHistoryType, UserType } from '../types';
 
-const BASE_URL = 'https://5192089a03c0.ngrok.io';
-export const SOCKET_URL = 'https://df4d8611a63c.ngrok.io';
+const BASE_URL = 'https://api.dsm-pay.com';
+export const SOCKET_URL = 'https://socket.dsm-pay.com';
 
 const request = axios.create({
   baseURL: BASE_URL,
@@ -16,22 +16,6 @@ const requestWithToken = () => {
       Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
     },
   });
-
-  instance.interceptors.response.use(
-    (res) => res,
-    (err: AxiosError) => {
-      const status = err.response?.status;
-
-      if (status === 401 || status === 404) {
-        alert('로그인이 필요합니다.');
-        localStorage.removeItem('accessToken');
-        window.location.href = '/booth/login';
-        return;
-      }
-
-      return Promise.reject(err);
-    }
-  );
 
   return instance;
 };

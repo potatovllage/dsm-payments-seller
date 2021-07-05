@@ -1,8 +1,8 @@
 import { useEffect, useRef } from 'react';
 import { useSetRecoilState } from 'recoil';
 import socketIO from 'socket.io-client';
-import { SOCKET_URL } from '../apis/booth';
 
+import { SOCKET_URL } from '../apis/booth';
 import { connectionConditionState, targetUuidState } from '../recoils/booth';
 import { ERROR } from '../types';
 
@@ -13,7 +13,10 @@ export const useSocket = () => {
   const setConnectionCondition = useSetRecoilState(connectionConditionState);
 
   useEffect(() => {
-    socket.current = socketIO.connect(SOCKET_URL, { transports: ['websocket'] });
+    socket.current = socketIO.connect(SOCKET_URL, {
+      transports: ['websocket'],
+      forceNew: true,
+    });
 
     socket.current.emit('auth', {
       accessToken: localStorage.getItem('accessToken'),

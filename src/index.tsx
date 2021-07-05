@@ -15,5 +15,3 @@ render(
   </React.StrictMode>,
   rootElement
 );
-
-console.log(window.Html5QrcodeScanner);
