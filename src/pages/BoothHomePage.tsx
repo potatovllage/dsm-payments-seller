@@ -14,7 +14,6 @@ export const BoothHomePage = () => {
   return (
     <Wrap>
       <Info loading={loading} />
-      <div className='graph'>graph</div>
     </Wrap>
   );
 };
