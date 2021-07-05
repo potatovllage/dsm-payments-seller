@@ -1,28 +1,23 @@
-import { useEffect } from 'react';
+import { FC } from 'react';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
-import { Html5QrcodeScanner, Html5QrcodeScannerConfig, Html5QrcodeFullConfig } from './@types/global';
+import { Header, SocketConnectionCondition, withNavigation, withNeedAuth } from './components';
+import { BoothHistoryPage, BoothLoginPage, BoothHomePage, BoothPayPage } from './pages';
 
-import { MainRouter } from './routers/MainRouter';
+const withLogin = (Component: FC) => withNeedAuth(withNavigation(Component));
 
 function App() {
-  useEffect(() => {
-    window.makeHtml5QrcodeScanner = (
-      elementId: string,
-      config: Html5QrcodeScannerConfig | undefined,
-      verbose: boolean | undefined
-    ): Html5QrcodeScanner => {
-      return new window.Html5QrcodeScanner(elementId, config, verbose);
-    };
-
-    window.makeHtml5QrCode = (elementId: string, configOrVerbosityFlag: boolean | Html5QrcodeFullConfig | undefined) => {
-      return new window.Html5Qrcode(elementId, configOrVerbosityFlag);
-    };
-  }, []);
-
   return (
-    <>
-      <MainRouter />
-    </>
+    <BrowserRouter>
+      <Header />
+      <SocketConnectionCondition />
+      <Switch>
+        <Route path='/login' component={BoothLoginPage} />
+        <Route path='/payment' component={withLogin(BoothPayPage)} />
+        <Route path='/history' component={withLogin(BoothHistoryPage)} />
+        <Route path='/' component={withLogin(BoothHomePage)} />
+      </Switch>
+    </BrowserRouter>
   );
 }
 

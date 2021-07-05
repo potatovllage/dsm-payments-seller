@@ -1,4 +1,4 @@
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import styled from '@emotion/styled';
 
 import { useSocket } from '../../hooks/useSocket';

@@ -9,15 +9,15 @@ const Navigation = () => {
 
   return (
     <Wrap>
-      <NavLink to='/booth' exact activeClassName='active'>
+      <NavLink to='/' exact activeClassName='active'>
         <AiOutlineHome />
         <span>홈</span>
       </NavLink>
-      <NavLink to='/booth/payment' exact activeClassName='active'>
+      <NavLink to='/payment' exact activeClassName='active'>
         <MdPayment />
         <span>결제</span>
       </NavLink>
-      <NavLink to='/booth/history' exact activeClassName='active'>
+      <NavLink to='/history' exact activeClassName='active'>
         <AiOutlineHistory />
         <span>결제 내역</span>
       </NavLink>
@@ -25,7 +25,7 @@ const Navigation = () => {
         <IoQrCode />
         <span>QR 코드</span>
       </a>
-      <Link to='/booth/login' onClick={logout}>
+      <Link to='/login' onClick={logout}>
         <AiOutlineLogout />
         <span>로그아웃</span>
       </Link>
