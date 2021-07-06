@@ -12,10 +12,19 @@ function App() {
       <Header />
       <SocketConnectionCondition />
       <Switch>
-        <Route path='/login' component={BoothLoginPage} />
-        <Route path='/payment' component={withLogin(BoothPayPage)} />
-        <Route path='/history' component={withLogin(BoothHistoryPage)} />
-        <Route path='/' component={withLogin(BoothHomePage)} />
+        <Route exact path='/login' component={BoothLoginPage} />
+        <Route exact path='/payment' component={withLogin(BoothPayPage)} />
+        <Route exact path='/history' component={withLogin(BoothHistoryPage)} />
+        <Route exact path='/' component={withLogin(BoothHomePage)} />
+        <Route
+          component={() => {
+            const daBoindaHaetje = 'https://www.youtube.com/watch?v=DDYJysAYVWo';
+
+            window.location.href = daBoindaHaetje;
+
+            return null;
+          }}
+        />
       </Switch>
     </BrowserRouter>
   );
