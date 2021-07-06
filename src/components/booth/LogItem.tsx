@@ -1,21 +1,25 @@
 import styled from '@emotion/styled';
 
 type Props = {
-  id: number | string;
+  id: number;
   userName: string;
-  userNumber: number | string;
+  userNumber: number;
   boothName: string;
-  finalValue: number | string;
+  requestedValue: number;
+  tax: number;
+  finalValue: number;
   createAt: string;
 };
 
-const LogItem = ({ id, userNumber, userName, finalValue, boothName, createAt }: Props) => {
+const LogItem = ({ id, userNumber, userName, requestedValue, tax, finalValue, boothName, createAt }: Props) => {
   return (
     <Wrap>
       <span className='id'>{id}</span>
       <span className='number'>{userNumber}</span>
       <span className='name'>{userName}</span>
-      <span className={`coin ${isNaN(+finalValue) ? '' : +finalValue > 0 ? 'positive' : 'negative'}`}>{finalValue}</span>
+      <span className={`requestedValue ${requestedValue > 0 ? 'positive' : 'negative'}`}>{requestedValue}</span>
+      <span className={`tax negative`}>{-tax}</span>
+      <span className={`finalValue ${finalValue > 0 ? 'positive' : 'negative'}`}>{finalValue}</span>
       <span className='place'>{boothName}</span>
       <span className='time'>{new Date(createAt).toLocaleTimeString()}</span>
     </Wrap>
@@ -49,7 +53,9 @@ export const Wrap = styled.li`
     &.name {
       width: 10%;
     }
-    &.coin {
+    &.requestedValue,
+    &.tax,
+    &.finalValue {
       width: 15%;
       text-align: right;
       &.positive {

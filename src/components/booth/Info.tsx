@@ -57,6 +57,7 @@ const Info = ({ loading }: Props) => {
 const Wrap = styled.ul`
   flex: 1;
   display: flex;
+  align-items: center;
   > li {
     flex: 1;
     display: flex;

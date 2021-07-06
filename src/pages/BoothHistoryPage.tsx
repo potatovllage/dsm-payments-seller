@@ -38,7 +38,9 @@ export const BoothHistoryPage = () => {
           <span className='id'>영수증 ID</span>
           <span className='number'>학번</span>
           <span className='name'>이름</span>
-          <span className='coin'>거래량</span>
+          <span className='requestedValue'>요청 거래량</span>
+          <span className='tax'>수수료</span>
+          <span className='finalValue'>최종 거래량</span>
           <span className='place'>거래 부스</span>
           <span className='time'>시간</span>
         </LogItemWrap>
