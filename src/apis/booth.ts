@@ -2,8 +2,8 @@ import axios from 'axios';
 
 import { BoothInfoType, MenuType, PaymentHistoryType, UserType } from '../types';
 
-const BASE_URL = 'https://api.dsm-pay.com';
-export const SOCKET_URL = 'https://socket.dsm-pay.com';
+const BASE_URL = 'http://15.165.47.216:8080';
+export const SOCKET_URL = 'http://15.165.47.216:8888';
 
 const request = axios.create({
   baseURL: BASE_URL,
