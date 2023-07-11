@@ -1,5 +1,7 @@
 import { NavLink, Link } from 'react-router-dom';
-import { AiOutlineHome, AiOutlineHistory, MdPayment, AiOutlineLogout, IoQrCode } from 'react-icons/all';
+import { IoQrCode } from 'react-icons/io5';
+import { AiOutlineLogout, AiOutlineHome, AiOutlineHistory } from 'react-icons/ai';
+import { MdPayment } from 'react-icons/md';
 import styled from '@emotion/styled';
 
 const Navigation = () => {
