@@ -3,7 +3,7 @@ import axios from 'axios';
 import { BoothInfoType, MenuType, PaymentHistoryType, UserType } from '../types';
 
 const BASE_URL = 'https://payments.gmbot.dev';
-export const SOCKET_URL = 'http://15.165.47.216:8888';
+export const SOCKET_URL = 'https://qr.gmbot.dev';
 
 const request = axios.create({
   baseURL: BASE_URL,
